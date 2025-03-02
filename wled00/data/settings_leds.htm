@@ -761,52 +761,51 @@ Swap: <select id="xw${s}" name="XW${s}">
 	<form id="form_s" name="Sf" method="post">
 		<div class="toprow">
 		<div class="helpB"><button type="button" onclick="H('features/settings/#led-settings')">?</button></div>
-		<button type="button" onclick="B()">Back</button><button type="submit">Save</button><hr>
+		<button type="button" onclick="B()">返回</button><button type="submit">保存</button><hr>
 		</div>
-		<h2>LED &amp; Hardware setup</h2>
-		Total LEDs: <span id="lc">?</span> <span id="pc"></span><br>
-		<i>Recommended power supply for brightest white:</i><br>
+		<h2>LED &amp; 硬件设置</h2>
+		总 LED 数量：<span id="lc">?</span> <span id="pc"></span><br>
+		<i>推荐电源配置（全白最亮时）：</i><br>
 		<b><span id="psu">?</span></b><br>
 		<span id="psu2"><br></span>
 		<br>
-		Enable automatic brightness limiter: <input type="checkbox" name="ABL" onchange="enABL()"><br>
+		启用自动亮度限制：<input type="checkbox" name="ABL" onchange="enABL()"><br>
 		<div id="abl">
-			<i>Automatically limits brightness to stay close to the limit.<br>
-				Keep at &lt;1A if powering LEDs directly from the ESP 5V pin!<br>
-				If using multiple outputs it is recommended to use per-output limiter.<br>
-				Analog (PWM) and virtual LEDs cannot use automatic brightness limiter.<br></i>
-			<div id="psuMA">Maximum PSU Current: <input name="MA" type="number" class="xl" min="250" max="65000" oninput="UI()" required> mA<br></div>
-			Use per-output limiter: <input type="checkbox" name="PPL" onchange="UI()"><br>
+			<i>自动限制亮度以保持在设定值以下<br>
+				当直接从 ESP 5V 引脚供电时，请保持 &lt;1A！<br>
+				使用多路输出时建议启用单路限制器。<br>
+				模拟（PWM）和虚拟 LED 无法使用此功能。<br></i>
+			<div id="psuMA">最大电源电流：<input name="MA" type="number" class="xl" min="250" max="65000" oninput="UI()" required> mA<br></div>
+			启用单路限制器：<input type="checkbox" name="PPL" onchange="UI()"><br>
 			<div id="ppldis" style="display:none;">
-				<i>Make sure you enter correct value for each LED output.<br>
-				If using multiple outputs with only one PSU, distribute its power proportionally amongst outputs.</i><br>
+				<i>请确保为每个LED输出设置正确值。<br>
+				使用单一电源多路输出时，请按比例分配功率。</i><br>
 			</div>
 			<div id="ampwarning" class="warn" style="display: none;">
-				&#9888; Your power supply provides high current.<br>
-				To improve the safety of your setup,<br>
-				please use thick cables,<br>
-				multiple power injection points and a fuse!<br>
+				&#9888; 您的电源提供了高电流。<br>
+				建议采取以下安全措施：<br>
+				使用粗线缆、提高电源输入或添加保险丝！<br>
 			</div>
 		</div>
-		<h3>Hardware setup</h3>
-		<div id="mLC">LED outputs:</div>
+		<h3>硬件配置</h3>
+		<div id="mLC">LED 输出：</div>
 		<hr class="sml">
 		<button type="button" id="+" onclick="addLEDs(1,false)">+</button>
 		<button type="button" id="-" onclick="addLEDs(-1,false)">-</button><br>
-		LED memory usage: <span id="m0">0</span> / <span id="m1">?</span> B<br>
+		LED 内存使用：<span id="m0">0</span> / <span id="m1">?</span> B<br>
 		<div id="dbar" style="display:inline-block; width: 100px; height: 10px; border-radius: 20px;"></div><br>
 		<div id="ledwarning" class="warn" style="display: none;">
-			&#9888; You might run into stability or lag issues.<br>
-			Use less than <span id="wreason">800 LEDs per output</span> for the best experience!<br>
+			&#9888; 可能会遇到稳定性或延迟问题。<br>
+			建议<span id="wreason">单路LED数量不超过800</span>以获最佳体验！<br>
 		</div>
 		<hr class="sml">
-		<div id="prl" class="hide">Use parallel I2S: <input type="checkbox" name="PR"><br></div>
-		Make a segment for each output: <input type="checkbox" name="MS"><br>
-		Custom bus start indices: <input type="checkbox" onchange="tglSi(this.checked)" id="si"><br>
-		Use global LED buffer: <input type="checkbox" name="LD" onchange="UI()"><br>
+		<div id="prl" class="hide">启用并行 I2S：<input type="checkbox" name="PR"><br></div>
+		为每个输出创建独立分段：<input type="checkbox" name="MS"><br>
+		自定义总线起始索引：<input type="checkbox" onchange="tglSi(this.checked)" id="si"><br>
+		使用全局 LED 缓冲区：<input type="checkbox" name="LD" onchange="UI()"><br>
 		<hr class="sml">
 		<div id="color_order_mapping">
-			Color Order Override:
+			颜色顺序覆盖：
 			<div id="com_entries"></div>
 			<hr class="sml">
 			<button type="button" id="com_add" onclick="addCOM()">+</button>
@@ -814,83 +813,83 @@ Swap: <select id="xw${s}" name="XW${s}">
 		</div>
 		<hr class="sml">
 		<div id="btns"></div>
-		Disable internal pull-up/down: <input type="checkbox" name="IP"><br>
-		Touch threshold: <input type="number" class="s" min="0" max="100" name="TT" required><br>
+		禁用内部上拉/下拉：<input type="checkbox" name="IP"><br>
+		触发阈值：<input type="number" class="s" min="0" max="100" name="TT" required><br>
 		<hr class="sml">
-		IR GPIO: <input type="number" min="-1" max="48" name="IR" onchange="UI()" class="xs"><select name="IT" onchange="UI()">
-		<option value=0>Remote disabled</option>
-		<option value=1>24-key RGB</option>
-		<option value=2>24-key with CT</option>
-		<option value=3>40-key blue</option>
-		<option value=4>44-key RGB</option>
-		<option value=5>21-key RGB</option>
-		<option value=6>6-key black</option>
-		<option value=7>9-key red</option>
-		<option value=8>JSON remote</option>
+		红外 GPIO：<input type="number" min="-1" max="48" name="IR" onchange="UI()" class="xs"><select name="IT" onchange="UI()">
+		<option value=0>禁用遥控</option>
+		<option value=1>24 键 RGB</option>
+		<option value=2>24 键带色温</option>
+		<option value=3>40 键蓝色</option>
+		<option value=4>44 键 RGB</option>
+		<option value=5>21 键 RGB</option>
+		<option value=6>6 键黑色</option>
+		<option value=7>9 键红色</option>
+		<option value=8>JSON 遥控</option>
 		</select><span style="cursor: pointer;" onclick="off('IR')">&nbsp;&#x2715;</span><br>
-		Apply IR change to main segment only: <input type="checkbox" name="MSO"><br>
-		<div id="json" style="display:none;">JSON file: <input type="file" name="data" accept=".json"><button type="button" class="sml" onclick="uploadFile(d.Sf.data,'/ir.json')">Upload</button><br></div>
-		<a href="https://kno.wled.ge/interfaces/infrared/" target="_blank">IR info</a><br>
+		仅对主分段应用红外更改：<input type="checkbox" name="MSO"><br>
+		<div id="json" style="display:none;">JSON 文件：<input type="file" name="data" accept=".json"><button type="button" class="sml" onclick="uploadFile(d.Sf.data,'/ir.json')">上传</button><br></div>
+		<a href="https://kno.wled.ge/interfaces/infrared/" target="_blank">红外信息</a><br>
 		<hr class="sml">
-		Relay GPIO: <input type="number" min="-1" max="48" name="RL" onchange="UI()" class="xs"><span style="cursor: pointer;" onclick="off('RL')">&nbsp;&#x2715;</span><br>
-		Invert <input type="checkbox" name="RM"> Open drain <input type="checkbox" name="RO"><br>
+		继电器 GPIO：<input type="number" min="-1" max="48" name="RL" onchange="UI()" class="xs"><span style="cursor: pointer;" onclick="off('RL')">&nbsp;&#x2715;</span><br>
+		反向 <input type="checkbox" name="RM"> 开漏 <input type="checkbox" name="RO"><br>
 		<hr class="sml">
-		<h3>Defaults</h3>
-		Turn LEDs on after power up/reset: <input type="checkbox" name="BO"><br>
-		Default brightness: <input name="CA" type="number" class="m" min="1" max="255" required> (1-255)<br><br>
-		Apply preset <input name="BP" type="number" class="m" min="0" max="250" required> at boot (0 uses values from above)<br><br>
-		Use Gamma correction for color: <input type="checkbox" name="GC"> (strongly recommended)<br>
-		Use Gamma correction for brightness: <input type="checkbox" name="GB"> (not recommended)<br>
-		Use Gamma value: <input name="GV" type="number" class="m" placeholder="2.8" min="1" max="3" step="0.1" required><br><br>
-		Brightness factor: <input name="BF" type="number" class="m" min="1" max="255" required> %
-		<h3>Transitions</h3>
-		Default transition time: <input name="TD" type="number" class="xl" min="0" max="65500"> ms<br>
-		<i>Random Cycle</i> Palette Time: <input name="TP" type="number" class="m" min="1" max="255"> s<br>
-		Use harmonic <i>Random Cycle</i> Palette: <input type="checkbox" name="TH"><br>
-		<h3>Timed light</h3>
-		Default duration: <input name="TL" type="number" class="m" min="1" max="255" required> min<br>
-		Default target brightness: <input name="TB" type="number" class="m" min="0" max="255" required><br>
-		Mode:
+		<h3>默认设置</h3>
+		上电/复位后点亮 LED：<input type="checkbox" name="BO"><br>
+		默认亮度：<input name="CA" type="number" class="m" min="1" max="255" required>（1-255）<br><br>
+		启动时应用预设：<input name="BP" type="number" class="m" min="0" max="250" required>（0表示使用上方设置）<br><br>
+		启用颜色 Gamma 校正：<input type="checkbox" name="GC">（强烈推荐）<br>
+		启用亮度 Gamma 校正：<input type="checkbox" name="GB">（不推荐）<br>
+		Gamma 值：<input name="GV" type="number" class="m" placeholder="2.8" min="1" max="3" step="0.1" required><br><br>
+		亮度系数：<input name="BF" type="number" class="m" min="1" max="255" required> %
+		<h3>过渡效果</h3>
+		默认过渡时间：<input name="TD" type="number" class="xl" min="0" max="65500"> 毫秒<br>
+		<i>随机循环</i>调色板时长：<input name="TP" type="number" class="m" min="1" max="255"> 秒<br>
+		使用谐波<i>随机循环</i>调色板：<input type="checkbox" name="TH"><br>
+		<h3>定时灯光</h3>
+		默认持续时间：<input name="TL" type="number" class="m" min="1" max="255" required> 分钟<br>
+		默认目标亮度：<input name="TB" type="number" class="m" min="0" max="255" required><br>
+		模式：
 		<select name="TW">
 			<option value="0">Wait and set</option>
-			<option value="1">Fade</option>
-			<option value="2">Fade Color</option>
+			<option value="1">渐变</option>
+			<option value="2">颜色渐变</option>
 			<option value="3">Sunrise</option>
 		</select>
-		<h3>White management</h3>
-		White Balance correction: <input type="checkbox" name="CCT"><br>
+		<h3>白光管理</h3>
+		白平衡校正：<input type="checkbox" name="CCT"><br>
 		<div id="wc">
-			Global override for Auto-calculate white:<br>
+			全局自动白平衡设置：<br>
 			<select name="AW">
-				<option value=255>Disabled</option>
-				<option value=0>None</option>
+				<option value=255>禁用</option>
+				<option value=0>无</option>
 				<option value=1>Brighter</option>
 				<option value=2>Accurate</option>
 				<option value=3>Dual</option>
 				<option value=4>Max</option>
 			</select>
 			<br>
-			Calculate CCT from RGB: <input type="checkbox" name="CR"><br>
-			CCT IC used (Athom 15W): <input type="checkbox" name="IC"><br>
-			CCT additive blending: <input type="number" class="s" min="0" max="100" name="CB" onchange="UI()" required> %<br>
-			<i class="warn">WARNING: When using H-bridge for reverse polarity (2-wire) CCT LED strip<br><b>make sure this value is 0</b>.<br>(ESP32 variants only, ESP8266 does not support H-bridges)</i>
+			从RGB计算色温：<input type="checkbox" name="CR"><br>
+			使用 CCT IC（Athom 15W）：<input type="checkbox" name="IC"><br>
+			CCT 叠加混合：<input type="number" class="s" min="0" max="100" name="CB" onchange="UI()" required> %<br>
+			<i class="warn">警告：使用 H 桥接反向极性（2线）CCT 灯带时<br><b>请确保此值为 0</b><br>（仅限 ESP32 型号，ESP8266 不支持 H 桥）</i>
 		</div>
-		<h3>Advanced</h3>
-		Palette wrapping:
+		<h3>高级设置</h3>
+		调色板循环模式：
 		<select name="PB">
-			<option value="0">Linear (wrap if moving)</option>
-			<option value="1">Linear (always wrap)</option>
-			<option value="2">Linear (never wrap)</option>
-			<option value="3">None (not recommended)</option>
+			<option value="0">线性（移动时循环）</option>
+			<option value="1">线性（始终循环）</option>
+			<option value="2">线性（不循环）</option>
+			<option value="3">无（不推荐）</option>
 		</select><br>
-		Target refresh rate: <input type="number" class="s" min="0" max="250" name="FR" oninput="UI()" required> FPS
-		<div id="fpsNone" class="warn" style="display: none;">&#9888; Unlimited FPS Mode  is experimental &#9888;<br></div>
-		<div id="fpsHigh" class="warn" style="display: none;">&#9888; High FPS Mode is experimental.<br></div>
-		<div id="fpsWarn" class="warn" style="display: none;">Please <a class="lnk" href="sec#backup">backup</a> WLED configuration and presets first!<br></div>
+		目标刷新率：<input type="number" class="s" min="0" max="250" name="FR" oninput="UI()" required> FPS
+		<div id="fpsNone" class="warn" style="display: none;">&#9888; 无限FPS模式为实验性功能 &#9888;<br></div>
+		<div id="fpsHigh" class="warn" style="display: none;">&#9888; 高刷新率模式为实验性功能。<br></div>
+		<div id="fpsWarn" class="warn" style="display: none;">请先<a class="lnk" href="sec#backup">备份</a> WLED 配置和预设！<br></div>
 		<hr class="sml">
-		<div id="cfg">Config template: <input type="file" name="data2" accept=".json"><button type="button" class="sml" onclick="loadCfg(d.Sf.data2)">Apply</button><br></div>
+		<div id="cfg">配置模板：<input type="file" name="data2" accept=".json"><button type="button" class="sml" onclick="loadCfg(d.Sf.data2)">应用</button><br></div>
 		<hr>
-		<button type="button" onclick="B()">Back</button><button type="submit">Save</button>
+		<button type="button" onclick="B()">返回</button><button type="submit">保存</button>
 	</form>
 	<div id="toast"></div>
 </body>
