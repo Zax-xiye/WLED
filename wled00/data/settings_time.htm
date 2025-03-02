@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
 	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
 	<meta charset="utf-8">
-	<title>Time Settings</title>
+	<title>时间设置</title>
 	<script src="common.js" async type="text/javascript"></script>
 	<script>
 	var el=false;
@@ -125,87 +125,87 @@
 	<form id="form_s" name="Sf" method="post" onsubmit="Wd()">
 		<div class="toprow">
 		<div class="helpB"><button type="button" onclick="H('features/settings/#time-settings')">?</button></div>
-		<button type="button" onclick="B()">Back</button><button type="submit">Save</button><hr>
+		<button type="button" onclick="B()">返回</button><button type="submit">保存</button><hr>
 		</div>
-		<h2>Time setup</h2>
-		Get time from NTP server: <input type="checkbox" name="NT"><br>
+		<h2>时间设置</h2>
+		从 NTP 服务器获取时间：<input type="checkbox" name="NT"><br>
 		<input type="text" name="NS" maxlength="32"><br>
-		Use 24h format: <input type="checkbox" name="CF"><br>
-		Time zone: 
+		使用 24 小时制：<input type="checkbox" name="CF"><br>
+		时区：
 		<select name="TZ">
 			<option value="0" selected>GMT(UTC)</option>
 			<option value="1">GMT/BST</option>
 			<option value="2">CET/CEST</option>
 			<option value="3">EET/EEST</option>
-			<option value="4">US-EST/EDT</option>
-			<option value="5">US-CST/CDT</option>
-			<option value="6">US-MST/MDT</option>
-			<option value="7">US-AZ</option>
-			<option value="8">US-PST/PDT</option>
-			<option value="9">CST (AWST, PHST)</option>
-			<option value="10">JST (KST)</option>
-			<option value="11">AEST/AEDT</option>
-			<option value="12">NZST/NZDT</option>
-			<option value="13">North Korea</option>
-			<option value="14">IST (India)</option>
-			<option value="15">CA-Saskatchewan</option>
-			<option value="16">ACST</option>
-			<option value="17">ACST/ACDT</option>
-			<option value="18">HST (Hawaii)</option>
-			<option value="19">NOVT (Novosibirsk)</option>
-			<option value="20">AKST/AKDT (Anchorage)</option>
-			<option value="21">MX-CST</option>
-			<option value="22">PKT (Pakistan)</option>
-			<option value="23">BRT (Brasília)</option>
+			<option value="4">美国东部时间 (EST/EDT)</option>
+			<option value="5">美国中部时间 (CST/CDT)</option>
+			<option value="6">美国山区时间 (MST/MDT)</option>
+			<option value="7">美国亚利桑那州时间</option>
+			<option value="8">美国太平洋时间 (PST/PDT)</option>
+			<option value="9">中国标准时间 (CST)</option>
+			<option value="10">日本标准时间 (JST/KST)</option>
+			<option value="11">澳大利亚东部时间 (AEST/AEDT)</option>
+			<option value="12">新西兰标准时间 (NZST/NZDT)</option>
+			<option value="13">朝鲜时间</option>
+			<option value="14">印度标准时间 (IST)</option>
+			<option value="15">加拿大萨斯喀彻温省时间</option>
+			<option value="16">澳大利亚中部标准时间 (ACST)</option>
+			<option value="17">澳大利亚中部夏令时间 (ACST/ACDT)</option>
+			<option value="18">夏威夷标准时间 (HST)</option>
+			<option value="19">新西伯利亚时间 (NOVT)</option>
+			<option value="20">阿拉斯加时间 (AKST/AKDT)</option>
+			<option value="21">墨西哥中部时间 (MX-CST)</option>
+			<option value="22">巴基斯坦标准时间 (PKT)</option>
+			<option value="23">巴西利亚时间 (BRT)</option>
 		</select><br>
-		UTC offset: <input name="UO" type="number" min="-65500" max="65500" required> seconds (max. 18 hours)<br>
-		Current local time is <span class="times">unknown</span>.<br>
-		Latitude: <select name="LTR"><option value="N">N</option><option value="S">S</option></select><input name="LT" type="number" class="xl" min="0" max="66.6" step="0.01"><br>
-		Longitude: <select name="LNR"><option value="E">E</option><option value="W">W</option></select><input name="LN" type="number" class="xl" min="0" max="180" step="0.01"><br>
-		<button type="button" id="locbtn" onclick="getLatLon()">Get location</button>
-		<div><i>(opens new tab, only works in browser)</i></div>
+		UTC 偏移量：<input name="UO" type="number" min="-65500" max="65500" required> 秒（最大 18 小时）<br>
+		当前本地时间为 <span class="times">未知</span>。<br>
+		纬度：<select name="LTR"><option value="N">N</option><option value="S">S</option></select><input name="LT" type="number" class="xl" min="0" max="66.6" step="0.01"><br>
+		经度：<select name="LNR"><option value="E">E</option><option value="W">W</option></select><input name="LN" type="number" class="xl" min="0" max="180" step="0.01"><br>
+		<button type="button" id="locbtn" onclick="getLatLon()">获取位置</button>
+		<div><i>（在新标签页中打开，仅在浏览器中有效）</i></div>
 		<div id="sun" class="times"></div>
-		<h3>Clock</h3>
-		Analog Clock overlay: <input type="checkbox" name="OL" onchange="Cs()"><br>
+		<h3>时钟</h3>
+		模拟时钟覆盖：<input type="checkbox" name="OL" onchange="Cs()"><br>
 		<div id="cac">
-			First LED: <input name="O1" type="number" min="0" max="255" required> Last LED: <input name="O2" type="number" min="0" max="255" required><br>
-			12h LED: <input name="OM" type="number" min="0" max="255" required><br>
-			Show 5min marks: <input type="checkbox" name="O5"><br>
-			Seconds (as trail): <input type="checkbox" name="OS"><br>
-			Show clock overlay only if all LEDs are solid black: <input type="checkbox" name="OB"><br>
+			起始 LED：<input name="O1" type="number" min="0" max="255" required> 结束 LED：<input name="O2" type="number" min="0" max="255" required><br>
+			12 小时刻度 LED：<input name="OM" type="number" min="0" max="255" required><br>
+			显示 5 分钟标记：<input type="checkbox" name="O5"><br>
+			秒针（作为轨迹）：<input type="checkbox" name="OS"><br>
+			仅当所有 LED 都为纯黑色时显示时钟覆盖：<input type="checkbox" name="OB"><br>
 		</div>
-		Countdown Mode: <input type="checkbox" name="CE"><br>
-		Countdown Goal:<br>
-		Date:&nbsp;<nowrap>20<input name="CY" class="xs" type="number" min="0" max="99" required>-<input name="CI" class="xs" type="number" min="1" max="12" required>-<input name="CD" class="xs" type="number" min="1" max="31" required></nowrap><br>
-		Time:&nbsp;<nowrap><input name="CH" class="xs" type="number" min="0" max="23" required>:<input name="CM" class="xs" type="number" min="0" max="59" required>:<input name="CS" class="xs" type="number" min="0" max="59" required></nowrap><br>
-		<h3>Macro presets</h3>
-		<b>Macros have moved!</b><br>
-		<i>Presets now also can be used as macros to save both JSON and HTTP API commands.<br>
-		Just enter the preset ID below!</i>
-		<i>Use 0 for the default action instead of a preset</i><br>
-		Alexa On/Off Preset: <input name="A0" class="m" type="number" min="0" max="250" required> <input name="A1" class="m" type="number" min="0" max="250" required><br>
-		Countdown-Over Preset: <input name="MC" class="m" type="number" min="0" max="250" required><br>
-		Timed-Light-Over Presets: <input name="MN" class="m" type="number" min="0" max="250" required><br>
-		<h3>Button actions</h3>
+		倒计时模式：<input type="checkbox" name="CE"><br>
+		倒计时目标：<br>
+		日期：&nbsp;<nowrap>20<input name="CY" class="xs" type="number" min="0" max="99" required>-<input name="CI" class="xs" type="number" min="1" max="12" required>-<input name="CD" class="xs" type="number" min="1" max="31" required></nowrap><br>
+		时间：&nbsp;<nowrap><input name="CH" class="xs" type="number" min="0" max="23" required>:<input name="CM" class="xs" type="number" min="0" max="59" required>:<input name="CS" class="xs" type="number" min="0" max="59" required></nowrap><br>
+		<h3>宏预设</h3>
+		<b>宏已迁移！</b><br>
+		<i>预设现在也可以用作宏，以保存 JSON 和 HTTP API 命令。<br>
+		只需在下方输入预设 ID 即可！</i>
+		<i>使用 0 表示默认操作而非预设</i><br>
+		Alexa 开/关预设：<input name="A0" class="m" type="number" min="0" max="250" required> <input name="A1" class="m" type="number" min="0" max="250" required><br>
+		倒计时结束预设：<input name="MC" class="m" type="number" min="0" max="250" required><br>
+		定时灯结束预设：<input name="MN" class="m" type="number" min="0" max="250" required><br>
+		<h3>按钮动作</h3>
 		<table style="margin: 0 auto;" id="macros">
 			<thead>
 				<tr>
-					<td>push<br>switch</td>
-					<td>short<br>on-&gt;off</td>
-					<td>long<br>off-&gt;on</td>
-					<td>double<br>N/A</td>
+					<td>按下<br>开关</td>
+					<td>短按<br>开-&gt;关</td>
+					<td>长按<br>关-&gt;开</td>
+					<td>双击<br>N/A</td>
 				</tr>
 			</thead>
 			<tbody>
 			</tbody>
 		</table>
-		<a href="https://kno.wled.ge/features/macros/#analog-button" target="_blank">Analog Button setup</a>
-		<h3>Time-controlled presets</h3>
+		<a href="https://kno.wled.ge/features/macros/#analog-button" target="_blank">模拟按钮设置</a>
+		<h3>时间控制的预设</h3>
 		<div style="display: inline-block">
 		<table id="TMT" style="min-width:330px;"></table>
 		</div>
 		<hr>
-		<button type="button" onclick="B()">Back</button><button type="submit">Save</button>
+		<button type="button" onclick="B()">返回</button><button type="submit">保存</button>
 	</form>
 </body>
 </html>
