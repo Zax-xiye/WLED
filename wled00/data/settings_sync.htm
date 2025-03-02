@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
 	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
 	<meta charset="utf-8">
-	<title>Sync Settings</title>
+	<title>同步设置</title>
 	<script src="common.js" async type="text/javascript"></script>
 	<script>
 	function adj(){if (d.Sf.DI.value == 6454) {if (d.Sf.EU.value == 1) d.Sf.EU.value = 0;}
@@ -49,19 +49,19 @@
 <form id="form_s" name="Sf" method="post" onsubmit="GC()">
 <div class="toprow">
 <div class="helpB"><button type="button" onclick="H('interfaces/udp-notifier/')">?</button></div>
-<button type="button" onclick="B()">Back</button><button type="submit">Save</button><hr>
+<button type="button" onclick="B()">返回</button><button type="submit">保存</button><hr>
 </div>
-<h2>Sync setup</h2>
-<h3>WLED Broadcast</h3>
-UDP Port: <input name="UP" type="number" min="1" max="65535" class="d5" required><br>
-2nd Port: <input name="U2" type="number" min="1" max="65535" class="d5" required><br>
+<h2>同步设置</h2>
+<h3>WLED 广播</h3>
+UDP 端口：<input name="UP" type="number" min="1" max="65535" class="d5" required><br>
+第二端口：<input name="U2" type="number" min="1" max="65535" class="d5" required><br>
 <div id="NoESPNOW" class="hide">
-<i class="warn">ESP-NOW support is disabled.<br></i>
+<i class="warn">ESP-NOW 支持已禁用。<br></i>
 </div>
 <div id="ESPNOW">
-Use ESP-NOW sync: <input type="checkbox" name="EN"><br><i>(in AP mode or no WiFi)</i><br>
+使用 ESP-NOW 同步：<input type="checkbox" name="EN"><br><i>（在 AP 模式或无 WiFi 时）</i><br>
 </div>
-<h3>Sync groups</h3>
+<h3>同步组</h3>
 <input name="GS" id="GS" type="number" style="display: none;"><!-- hidden inputs for bitwise group checkboxes -->
 <input name="GR" id="GR" type="number" style="display: none;">
 <table style="margin: 0 auto;">
@@ -77,7 +77,7 @@ Use ESP-NOW sync: <input type="checkbox" name="EN"><br><i>(in AP mode or no WiFi
 		<td>8</td>
 	</tr>
 	<tr>
-		<td>Send:</td>
+		<td>发送：</td>
 		<td><input type="checkbox" id="G1" name="G1"></td>
 		<td><input type="checkbox" id="G2" name="G2"></td>
 		<td><input type="checkbox" id="G3" name="G3"></td>
@@ -88,7 +88,7 @@ Use ESP-NOW sync: <input type="checkbox" name="EN"><br><i>(in AP mode or no WiFi
 		<td><input type="checkbox" id="G8" name="G8"></td>
 	</tr>
 	<tr>
-		<td>Receive:</td>
+		<td>接收：</td>
 		<td><input type="checkbox" id="R1" name="R1"></td>
 		<td><input type="checkbox" id="R2" name="R2"></td>
 		<td><input type="checkbox" id="R3" name="R3"></td>
@@ -99,8 +99,8 @@ Use ESP-NOW sync: <input type="checkbox" name="EN"><br><i>(in AP mode or no WiFi
 		<td><input type="checkbox" id="R8" name="R8"></td>
 	</tr>
 </table>
-<h3>Receive</h3>
-<nowrap><input type="checkbox" name="RB">Brightness,</nowrap> <nowrap><input type="checkbox" name="RC">Color,</nowrap> <nowrap><input type="checkbox" name="RX">Effects,</nowrap> <nowrap>and <input type="checkbox" name="RP">Palette</nowrap><br>
+<h3>接收</h3>
+<nowrap><input type="checkbox" name="RB">亮度，</nowrap> <nowrap><input type="checkbox" name="RC">颜色，</nowrap> <nowrap><input type="checkbox" name="RX">Effects,</nowrap> <nowrap>and <input type="checkbox" name="RP">Palette</nowrap><br>
 <input type="checkbox" name="SO"> Segment options, <input type="checkbox" name="SG"> bounds
 <h3>Send</h3>
 Enable Sync on start: <input type="checkbox" name="SS"><br>
