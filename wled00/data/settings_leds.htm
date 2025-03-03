@@ -69,13 +69,13 @@
 						let p = d.rsvd.concat(d.um_p); // used pin array
 						d.Sf.querySelectorAll("select.pin").forEach((e)=>{if(e.value>-1)p.push(parseInt(e.value));}) // buttons, IR & relay
 						if (p.some((e)=>e==parseInt(LC.value))) {
-							alert(`Sorry, pins ${JSON.stringify(p)} can't be used.`);
+							alert(`抱歉，引脚 ${JSON.stringify(p)} 不可使用！`);
 							LC.value="";
 							LC.focus();
 							ok = false;
 							return;
 						} else if (d.ro_gpio.some((e)=>e==parseInt(LC.value))) {
-							alert(`Sorry, pins ${JSON.stringify(d.ro_gpio)} are input only.`);
+							alert(`抱歉，引脚 ${JSON.stringify(d.ro_gpio)} 仅为输入模式！`);
 							LC.value="";
 							LC.focus();
 							ok = false;
@@ -90,7 +90,7 @@
 									if (t2>=80) continue;
 								}
 								if (nList[j].value!="" && nList[i].value==nList[j].value) {
-									alert(`Pin conflict between ${LC.name}/${nList[j].name}!`);
+									alert(`引脚冲突：${LC.name}/${nList[j].name}！`);
 									nList[j].value="";
 									nList[j].focus();
 									ok = false;
@@ -106,7 +106,7 @@
 			d.Sf.data.value = '';
 			e.preventDefault();
 			if (!pinsOK()) {e.stopPropagation();return false;} // Prevent form submission and contact with server
-			if (bquot > 100) {var msg = "Too many LEDs for me to handle!"; if (maxM < 10000) msg += "\n\rConsider using an ESP32."; alert(msg);}
+			if (bquot > 100) {var msg = "LED数量超出处理能力！"; if (maxM < 10000) msg += "\n\r建议使用ESP32。"; alert(msg);}
 			if (!d.Sf.ABL.checked || d.Sf.PPL.checked) d.Sf.MA.value = 0; // submit 0 as ABL (PPL will handle it)
 			if (d.Sf.checkValidity()) {
 				d.Sf.querySelectorAll("#mLC select[name^=LT]").forEach((s)=>{s.disabled=false;}); // just in case
@@ -436,13 +436,13 @@ mA/LED: <select name="LAsel${s}" onchange="enLA(this,'${s}');UI();">
 <option value="35">35mA (eco WS2812)</option>
 <option value="30">30mA (typ. 12V)</option>
 <option value="255">12mA (WS2815)</option>
-<option value="15">15mA (seed/fairy pixels)</option>
-<option value="0">Custom</option>
+<option value="15">15mA (种子灯 / 仙女灯)</option>
+<option value="0">自定义</option>
 </select><br>
 <div id="LAdis${s}" style="display: none;">max. mA/LED: <input name="LA${s}" type="number" min="1" max="255" oninput="UI()"> mA<br></div>
-<div id="PSU${s}">PSU: <input name="MA${s}" type="number" class="xl" min="250" max="65000" oninput="UI()" value="250"> mA<br></div>
+<div id="PSU${s}">电源：<input name="MA${s}" type="number" class="xl" min="250" max="65000" oninput="UI()" value="250"> mA<br></div>
 </div>
-<div id="co${s}" style="display:inline">Color Order:
+<div id="co${s}" style="display:inline">颜色顺序：
 <select name="CO${s}">
 <option value="0">GRB</option>
 <option value="1">RGB</option>
@@ -451,21 +451,21 @@ mA/LED: <select name="LAsel${s}" onchange="enLA(this,'${s}');UI();">
 <option value="4">BGR</option>
 <option value="5">GBR</option>
 </select></div>
-<div id="dig${s}w" style="display:none">Swap: <select name="WO${s}"><option value="0">None</option><option value="1">W & B</option><option value="2">W & G</option><option value="3">W & R</option><option data-opt="CCT" value="4">WW & CW</option></select></div>
-<div id="dig${s}l" style="display:none">Clock: <select name="SP${s}"><option value="0">Slowest</option><option value="1">Slow</option><option value="2">Normal</option><option value="3">Fast</option><option value="4">Fastest</option></select></div>
+<div id="dig${s}w" style="display:none">交换：<select name="WO${s}"><option value="0">无</option><option value="1">W & B</option><option value="2">W & G</option><option value="3">W & R</option><option data-opt="CCT" value="4">WW & CW</option></select></div>
+<div id="dig${s}l" style="display:none">时钟：<select name="SP${s}"><option value="0">最慢</option><option value="1">慢</option><option value="2">正常</option><option value="3">快</option><option value="4">最快</option></select></div>
 <div>
-<span id="psd${s}">Start:</span> <input type="number" name="LS${s}" id="ls${s}" class="l starts" min="0" max="8191" value="${lastEnd(i)}" oninput="startsDirty[${i}]=true;UI();" required />&nbsp;
-<div id="dig${s}c" style="display:inline">Length: <input type="number" name="LC${s}" class="l" min="1" max="${maxPB}" value="1" required oninput="UI()" /></div><br>
+<span id="psd${s}">起始：</span> <input type="number" name="LS${s}" id="ls${s}" class="l starts" min="0" max="8191" value="${lastEnd(i)}" oninput="startsDirty[${i}]=true;UI();" required />&nbsp;
+<div id="dig${s}c" style="display:inline">数量：<input type="number" name="LC${s}" class="l" min="1" max="${maxPB}" value="1" required oninput="UI()" /></div><br>
 </div>
 <span id="p0d${s}">GPIO:</span><input type="number" name="L0${s}" required class="s" onchange="UI();pinUpd(this);"/>
 <span id="p1d${s}"></span><input type="number" name="L1${s}" class="s" onchange="UI();pinUpd(this);"/>
 <span id="p2d${s}"></span><input type="number" name="L2${s}" class="s" onchange="UI();pinUpd(this);"/>
 <span id="p3d${s}"></span><input type="number" name="L3${s}" class="s" onchange="UI();pinUpd(this);"/>
 <span id="p4d${s}"></span><input type="number" name="L4${s}" class="s" onchange="UI();pinUpd(this);"/>
-<div id="dig${s}r" style="display:inline"><br><span id="rev${s}">Reversed</span>: <input type="checkbox" name="CV${s}"></div>
-<div id="dig${s}s" style="display:inline"><br>Skip first LEDs: <input type="number" name="SL${s}" min="0" max="255" value="0" oninput="UI()"></div>
-<div id="dig${s}f" style="display:inline"><br><span id="off${s}">Off Refresh</span>: <input id="rf${s}" type="checkbox" name="RF${s}"></div>
-<div id="dig${s}a" style="display:inline"><br>Auto-calculate W channel from RGB:<br><select name="AW${s}"><option value=0>None</option><option value=1>Brighter</option><option value=2>Accurate</option><option value=3>Dual</option><option value=4>Max</option></select>&nbsp;</div>
+<div id="dig${s}r" style="display:inline"><br><span id="rev${s}">反向</span>: <input type="checkbox" name="CV${s}"></div>
+<div id="dig${s}s" style="display:inline"><br>跳过前导 LED：<input type="number" name="SL${s}" min="0" max="255" value="0" oninput="UI()"></div>
+<div id="dig${s}f" style="display:inline"><br><span id="off${s}">关闭刷新</span>: <input id="rf${s}" type="checkbox" name="RF${s}"></div>
+<div id="dig${s}a" style="display:inline"><br>从 RGB 自动计算白通道：<br><select name="AW${s}"><option value=0>无</option><option value=1>更亮</option><option value=2>精确</option><option value=3>双模式</option><option value=4>最大</option></select>&nbsp;</div>
 </div>`;
 				f.insertAdjacentHTML("beforeend", cn);
 				// fill led types (credit @netmindz)
@@ -521,7 +521,7 @@ Length: <input type="number" name="XC${s}" id="xc${s}" class="l" min="1" max="65
 <option value="5">GBR</option>
 </select>
 Swap: <select id="xw${s}" name="XW${s}">
-<option value="0">Use global</option>
+<option value="0">使用全局</option>
 <option value="1">W & B</option>
 <option value="2">W & G</option>
 <option value="3">W & R</option>
