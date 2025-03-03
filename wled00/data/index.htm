@@ -266,11 +266,11 @@
 		<div id="segutil2">
 			<button class="btn btn-s" id="rsbtn" onclick="rSegs()">重置分段</button>
 		</div>
-		<p>过渡：<input id="tt" type="number" min="0" max="65.5" step="0.1" value="0.7" onchange="parseFloat(this.value)===0?gId('bsp').classList.add('hide'):gId('bsp').classList.remove('hide');">&nbsp;秒</p>
-		<p id="bsp">效果：
+		<p>过渡：<input id="tt" type="number" min="0" max="65.5" step="0.1" value="0.7" onchange="parseFloat(this.value)===0?gId('bsp').classList.add('hide'):gId('bsp').classList.remove('hide');">&nbsp;s</p>
+		<p id="bsp">混合：
 			<select id="bs" class="sel-sg" onchange="requestJson({'bs':parseInt(this.value)})">
 				<option value="0">淡入淡出</option>
-				<option value="1">仙尘</option>
+				<option value="1">Fairy Dust</option>
 				<option value="2">向右滑动</option>
 				<option value="3">向左滑动</option>
 				<option value="16">向右推动</option>
