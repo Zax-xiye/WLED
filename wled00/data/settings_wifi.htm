@@ -113,7 +113,7 @@
 			var i = gId("wifi_entries").childNodes.length;
 			if (i >= maxNetworks) return;
 			var b = `<div id="net${i}"><hr class="sml">
-网络名称 (SSID${i==0?", 为空则不连接":""})：<br><input type="text" id="CS${i}" name="CS${i}" maxlength="32" value="${ssid}" ${i>0?"required":""}><br>
+网络名称（SSID${i==0?", 为空则不连接":""}）：<br><input type="text" id="CS${i}" name="CS${i}" maxlength="32" value="${ssid}" ${i>0?"required":""}><br>
 网络密码：<br><input type="password" name="PW${i}" maxlength="64" value="${pass}"><br>
 BSSID（可选）：<br><input type="text" id="BS${i}" name="BS${i}" maxlength="12" value="${bssid}"><br>
 静态 IP（保持 0.0.0.0 则使用 DHCP）${i==0?"<br>也用于以太网":""}：<br>

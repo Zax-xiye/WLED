@@ -733,9 +733,9 @@ ${inforow("信号强度",i.wifi.signal +"% ("+ i.wifi.rssi, " dBm)")}
 ${inforow("运行时间",getRuntimeStr(i.uptime))}
 ${inforow("当前时间",i.time)}
 ${inforow("空闲内存",(i.freeheap/1024).toFixed(1)," kB")}
-${i.psram?inforow("空闲 PSRAM",(i.psram/1024).toFixed(1)," kB"):""}
+${i.psram?inforow("空闲PSRAM",(i.psram/1024).toFixed(1)," kB"):""}
 ${inforow("估计电流",pwru)}
-${inforow("平均 FPS",i.leds.fps)}
+${inforow("平均FPS",i.leds.fps)}
 ${inforow("MAC地址",i.mac)}
 ${inforow("CPU时钟",i.clock," MHz")}
 ${inforow("闪存大小",i.flash," MB")}

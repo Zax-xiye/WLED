@@ -153,7 +153,7 @@
 				for (var j = -1; j < d.max_gpio; j++) {
 					if (d.rsvd.includes(j)) continue;
 					let foundPin = pins.indexOf(j);
-					let txt = (j === -1) ? "unused" : `${j}`;
+					let txt = (j === -1) ? "未使用" : `${j}`;
 					if (foundPin >= 0 && j !== v) txt += ` ${pinO[foundPin]=="if"?"global":pinO[foundPin]}`; // already reserved pin
 					if (d.ro_gpio.includes(j)) txt += " (R/O)";
 					let opt = addO(sel, txt, j);
@@ -181,7 +181,7 @@
 			Array.from(sel.options).forEach((i)=>{
 				if (!(i.value==oldV || i.value==e.value)) return;
 				if (i.value == -1) {
-					i.text = "unused";
+					i.text = "未使用";
 					return
 				}
 				if (i.value<100) { // TODO remove this hack and use d.extra
@@ -281,12 +281,12 @@
 		<span id="lserr" style="color:red; display:none">&#9888; 无法加载配置。</span><hr>
 		</div>
 		<h2>用户模块设置</h2>
-		全局 I<sup>2</sup>C GPIOs（硬件）<br>
+		全局 I<sup>2</sup>C 引脚（硬件）<br>
 		<i class="warn">（更改需要重启！）</i><br>
 		SDA:<input type="number" min="-1" max="48" name="SDA" onchange="check(this,'if')" class="s" placeholder="SDA">
 		SCL:<input type="number" min="-1" max="48" name="SCL" onchange="check(this,'if')" class="s" placeholder="SCL">
 		<hr class="sml">
-		全局 SPI GPIO（硬件）<br>
+		全局 SPI 引脚<br>
 		<i class="warn">（仅可在ESP32上更改，更改需要重启！）</i><br>
 		MOSI:<input type="number" min="-1" max="48" name="MOSI" onchange="check(this,'if')" class="s" placeholder="MOSI">
 		MISO:<input type="number" min="-1" max="48" name="MISO" onchange="check(this,'if')" class="s" placeholder="MISO">
