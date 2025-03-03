@@ -10,39 +10,39 @@
 	var sett = null;
 	var l = {
 		"comp":{
-			"labels":"Show button labels",
+			"labels":"显示按钮标签",
 			"colors":{
-				"LABEL":"Color selection methods",
-				"picker": "Color Wheel",
-				"rgb": "RGB sliders",
-				"quick": "Quick color selectors",
-				"hex": "HEX color input"
+				"LABEL":"颜色选择方法",
+				"picker": "色轮",
+				"rgb": "RGB 滑块",
+				"quick": "快速颜色选择器",
+				"hex": "十六进制颜色输入"
 				},
-			"pcmbot": "Show bottom tab bar in PC mode",
-			"pid": "Show preset IDs",
-			"seglen": "Set segment length instead of stop LED",
-			"segpwr": "Hide segment power &amp; brightness",
-			"segexp" : "Always expand first segment",
-			"css": "Enable custom CSS",
-			"hdays": "Enable custom Holidays list",
-			"fxdef": "Use effect default parameters",
-			"on": "Power button preset override for On",
-			"off": "Power button preset override for Off",
-			"idsort": "Sort presets by ID"
+			"pcmbot": "在 PC 模式下显示底部标签栏",
+			"pid": "显示预设 ID",
+			"seglen": "设置段长度而不是停止 LED",
+			"segpwr": "隐藏段功率和亮度",
+			"segexp" : "始终展开第一段",
+			"css": "启用自定义 CSS",
+			"hdays": "启用自定义节假日列表",
+			"fxdef": "使用效果默认参数",
+			"on": "电源按钮 开启 预设覆盖",
+			"off": "电源按钮 关闭 预设覆盖",
+			"idsort": "按照 ID 对预设进行排序"
 		},
 		"theme":{
 			"alpha": {
-				"bg":"Background opacity",
-				"tab":"Button opacity"
+				"bg":"背景不透明度",
+				"tab":"按钮不透明度"
 			},
 			"bg":{
-				"url":"BG image URL",
-				"rnd":"Random BG image",
-				"rndGrayscale":"Grayscale",
-				"rndBlur":"Blur"
+				"url":"背景图像 URL",
+				"rnd":"随机背景图像",
+				"rndGrayscale":"灰度",
+				"rndBlur":"模糊"
 			},
 			"color":{
-				"bg":"BG HEX color"
+				"bg":"十六进制背景颜色"
 			}
 		}
 	};
@@ -120,7 +120,7 @@
 		} catch (e) {
 			sett = {};
 			gId('lserr').style.display = "inline";
-			gId('lserr').innerHTML = "&#9888; Settings JSON parsing failed. (" + e + ")";
+			gId('lserr').innerHTML = "&#9888; 设置 JSON 解析失败。 (" + e + ")";
 		}
 		genForm(sett);
 		gId('dm').checked = (gId('theme_base').value === 'light');
@@ -141,7 +141,7 @@
 		} catch (e) {
 			gId('lssuc').style.display = "none";
 			gId('lserr').style.display = "inline";
-			gId('lserr').innerHTML = "&#9888; Settings JSON saving failed. (" + e + ")";
+			gId('lserr').innerHTML = "&#9888; 设置 JSON 保存失败。 (" + e + ")";
 		}
 	}
 
