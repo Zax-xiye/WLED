@@ -68,7 +68,7 @@ function loadJS(FILE_URL, async = true, preGetV = undefined, postGetV = undefine
 	// error event
 	scE.addEventListener("error", (ev) => {
 		console.log("Error on loading file", ev);
-		alert("Loading of configuration script failed.\nIncomplete page data!");
+		alert("配置脚本加载失败。\n页面数据不完整！");
 	});
 }
 function getLoc() {
@@ -77,7 +77,7 @@ function getLoc() {
 		loc = true;
 		locip = localStorage.getItem('locIp');
 		if (!locip) {
-			locip = prompt("File Mode. Please enter WLED IP!");
+			locip = prompt("文件模式。请输入 WLED IP！");
 			localStorage.setItem('locIp', locip);
 		}
 	} else {
