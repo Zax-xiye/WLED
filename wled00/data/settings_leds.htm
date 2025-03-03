@@ -214,25 +214,25 @@
 			const abl = d.Sf.ABL.checked;
 			maxB = oMaxB; // TODO make sure we start with all possible buses
 			let setPinConfig = (n,t) => {
-				let p0d = "GPIO:";
+				let p0d = "引脚：";
 				let p1d = "";
-				let off = "Off Refresh";
+				let off = "关闭刷新";
 				switch (gT(t).t.charAt(0)) {
 					case '2': // 2 pin digital
-						p1d = "Clock "+p0d;
+						p1d = "时钟 "+p0d;
 						// fallthrough
 					case 'D': // digital
-						p0d = "Data "+p0d;
+						p0d = "数据 "+p0d;
 						break;
 					case 'A': // PWM analog
-						if (numPins(t) > 1) p0d = "GPIOs:";
-						off = "Dithering";
+						if (numPins(t) > 1) p0d = "引脚：";
+						off = "抖动";
 						break;
 					case 'N': // network
-						p0d = "IP address:";
+						p0d = "IP 地址：";
 						break;
 					case 'V': // virtual/non-GPIO based
-						p0d = "Config:"
+						p0d = "配置："
 						break;
 				}
 				gId("p0d"+n).innerText = p0d;
@@ -457,7 +457,7 @@ mA/LED: <select name="LAsel${s}" onchange="enLA(this,'${s}');UI();">
 <span id="psd${s}">起始：</span> <input type="number" name="LS${s}" id="ls${s}" class="l starts" min="0" max="8191" value="${lastEnd(i)}" oninput="startsDirty[${i}]=true;UI();" required />&nbsp;
 <div id="dig${s}c" style="display:inline">数量：<input type="number" name="LC${s}" class="l" min="1" max="${maxPB}" value="1" required oninput="UI()" /></div><br>
 </div>
-<span id="p0d${s}">GPIO:</span><input type="number" name="L0${s}" required class="s" onchange="UI();pinUpd(this);"/>
+<span id="p0d${s}">引脚：</span><input type="number" name="L0${s}" required class="s" onchange="UI();pinUpd(this);"/>
 <span id="p1d${s}"></span><input type="number" name="L1${s}" class="s" onchange="UI();pinUpd(this);"/>
 <span id="p2d${s}"></span><input type="number" name="L2${s}" class="s" onchange="UI();pinUpd(this);"/>
 <span id="p3d${s}"></span><input type="number" name="L3${s}" class="s" onchange="UI();pinUpd(this);"/>
@@ -561,17 +561,17 @@ Swap: <select id="xw${s}" name="XW${s}">
 		function addBtn(i,p,t) {
 			var c = gId("btns").innerHTML;
 			var s = String.fromCharCode((i<10?48:55)+i);
-			c += `Button ${i} GPIO: <input type="number" name="BT${s}" onchange="UI()" class="xs" value="${p}">`;
+			c += `按钮 ${i} 引脚<input type="number" name="BT${s}" onchange="UI()" class="xs" value="${p}">`;
 			c += `&nbsp;<select name="BE${s}">`
-			c += `<option value="0" ${t==0?"selected":""}>Disabled</option>`;
-			c += `<option value="2" ${t==2?"selected":""}>Pushbutton</option>`;
-			c += `<option value="3" ${t==3?"selected":""}>Push inverted</option>`;
-			c += `<option value="4" ${t==4?"selected":""}>Switch</option>`;
-			c += `<option value="5" ${t==5?"selected":""}>PIR sensor</option>`;
-			c += `<option value="6" ${t==6?"selected":""}>Touch</option>`;
-			c += `<option value="7" ${t==7?"selected":""}>Analog</option>`;
-			c += `<option value="8" ${t==8?"selected":""}>Analog inverted</option>`;
-			c += `<option value="9" ${t==9?"selected":""}>Touch (switch)</option>`;
+			c += `<option value="0" ${t==0?"selected":""}>禁用</option>`;
+			c += `<option value="2" ${t==2?"selected":""}>按钮</option>`;
+			c += `<option value="3" ${t==3?"selected":""}>反向按钮</option>`;
+			c += `<option value="4" ${t==4?"selected":""}>开关</option>`;
+			c += `<option value="5" ${t==5?"selected":""}>人体感应</option>`;
+			c += `<option value="6" ${t==6?"selected":""}>触摸</option>`;
+			c += `<option value="7" ${t==7?"selected":""}>模拟</option>`;
+			c += `<option value="8" ${t==8?"selected":""}>反向模拟</option>`;
+			c += `<option value="9" ${t==9?"selected":""}>触摸（开关）</option>`;
 			c += `</select>`;
 			c += `<span style="cursor: pointer;" onclick="off('BT${s}')">&nbsp;&#x2715;</span><br>`;
 			gId("btns").innerHTML = c;
@@ -668,7 +668,7 @@ Swap: <select id="xw${s}" name="XW${s}">
 					for (var j = -1; j < d.max_gpio; j++) {
 						if (d.rsvd.includes(j)) continue;
 						let foundPin = d.um_p.indexOf(j);
-						let txt = (j === -1) ? "unused" : `${j}`;
+						let txt = (j === -1) ? "未使用" : `${j}`;
 						if (foundPin >= 0 && j !== v) txt += ` used`; // already reserved pin
 						if (d.ro_gpio.includes(j)) txt += " (R/O)";
 						let opt = addOption(sel, txt, j);
@@ -702,7 +702,7 @@ Swap: <select id="xw${s}" name="XW${s}">
 					let led = pins.includes(i.value);
 					if (!(i.value==oldV || i.value==e.value || led)) return;
 					if (i.value == -1) {
-						i.text = "unused";
+						i.text = "未使用";
 						return
 					}
 					i.text = i.value;
@@ -816,7 +816,7 @@ Swap: <select id="xw${s}" name="XW${s}">
 		禁用内部上拉/下拉：<input type="checkbox" name="IP"><br>
 		触发阈值：<input type="number" class="s" min="0" max="100" name="TT" required><br>
 		<hr class="sml">
-		红外 GPIO：<input type="number" min="-1" max="48" name="IR" onchange="UI()" class="xs"><select name="IT" onchange="UI()">
+		红外引脚：<input type="number" min="-1" max="48" name="IR" onchange="UI()" class="xs"><select name="IT" onchange="UI()">
 		<option value=0>禁用遥控</option>
 		<option value=1>24 键 RGB</option>
 		<option value=2>24 键带色温</option>
@@ -831,16 +831,16 @@ Swap: <select id="xw${s}" name="XW${s}">
 		<div id="json" style="display:none;">JSON 文件：<input type="file" name="data" accept=".json"><button type="button" class="sml" onclick="uploadFile(d.Sf.data,'/ir.json')">上传</button><br></div>
 		<a href="https://kno.wled.ge/interfaces/infrared/" target="_blank">红外信息</a><br>
 		<hr class="sml">
-		继电器 GPIO：<input type="number" min="-1" max="48" name="RL" onchange="UI()" class="xs"><span style="cursor: pointer;" onclick="off('RL')">&nbsp;&#x2715;</span><br>
+		继电器引脚：<input type="number" min="-1" max="48" name="RL" onchange="UI()" class="xs"><span style="cursor: pointer;" onclick="off('RL')">&nbsp;&#x2715;</span><br>
 		反向 <input type="checkbox" name="RM"> 开漏 <input type="checkbox" name="RO"><br>
 		<hr class="sml">
 		<h3>默认设置</h3>
 		上电/复位后点亮 LED：<input type="checkbox" name="BO"><br>
 		默认亮度：<input name="CA" type="number" class="m" min="1" max="255" required>（1-255）<br><br>
 		启动时应用预设：<input name="BP" type="number" class="m" min="0" max="250" required>（0表示使用上方设置）<br><br>
-		启用颜色 Gamma 校正：<input type="checkbox" name="GC">（强烈推荐）<br>
-		启用亮度 Gamma 校正：<input type="checkbox" name="GB">（不推荐）<br>
-		Gamma 值：<input name="GV" type="number" class="m" placeholder="2.8" min="1" max="3" step="0.1" required><br><br>
+		启用颜色伽马校正：<input type="checkbox" name="GC">（强烈推荐）<br>
+		启用亮度伽马校正：<input type="checkbox" name="GB">（不推荐）<br>
+		伽马值：<input name="GV" type="number" class="m" placeholder="2.8" min="1" max="3" step="0.1" required><br><br>
 		亮度系数：<input name="BF" type="number" class="m" min="1" max="255" required> %
 		<h3>过渡效果</h3>
 		默认过渡时间：<input name="TD" type="number" class="xl" min="0" max="65500"> 毫秒<br>
@@ -854,7 +854,7 @@ Swap: <select id="xw${s}" name="XW${s}">
 			<option value="0">Wait and set</option>
 			<option value="1">渐变</option>
 			<option value="2">颜色渐变</option>
-			<option value="3">Sunrise</option>
+			<option value="3">日出</option>
 		</select>
 		<h3>白光管理</h3>
 		白平衡校正：<input type="checkbox" name="CCT"><br>
