@@ -241,7 +241,7 @@ void getSettingsJS(byte subPage, Print& settingsScript)
       printSetClassElementHTML(settingsScript,PSTR("sip"),0,s);
     } else
     {
-      printSetClassElementHTML(settingsScript,PSTR("sip"),0,(char*)F("Not connected"));
+      printSetClassElementHTML(settingsScript,PSTR("sip"),0,(char*)F("未连接"));
     }
 
     if (WiFi.softAPIP()[0] != 0) //is active
@@ -252,16 +252,16 @@ void getSettingsJS(byte subPage, Print& settingsScript)
       printSetClassElementHTML(settingsScript,PSTR("sip"),1,s);
     } else
     {
-      printSetClassElementHTML(settingsScript,PSTR("sip"),1,(char*)F("Not active"));
+      printSetClassElementHTML(settingsScript,PSTR("sip"),1,(char*)F("未激活"));
     }
 
     #ifndef WLED_DISABLE_ESPNOW
     if (strlen(last_signal_src) > 0) { //Have seen an ESP-NOW Remote
       printSetClassElementHTML(settingsScript,PSTR("rlid"),0,last_signal_src);
     } else if (!enableESPNow) {
-      printSetClassElementHTML(settingsScript,PSTR("rlid"),0,(char*)F("(Enable ESP-NOW to listen)"));
+      printSetClassElementHTML(settingsScript,PSTR("rlid"),0,(char*)F("（启用 ESP-NOW 以监听）"));
     } else {
-      printSetClassElementHTML(settingsScript,PSTR("rlid"),0,(char*)F("None"));
+      printSetClassElementHTML(settingsScript,PSTR("rlid"),0,(char*)F("无"));
     }
     #endif
   }

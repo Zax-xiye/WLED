@@ -12,12 +12,12 @@
 #include "html_cpal.h"
 
 // define flash strings once (saves flash memory)
-static const char s_redirecting[] PROGMEM = "Redirecting...";
+static const char s_redirecting[] PROGMEM = "正在重定向...";
 static const char s_content_enc[] PROGMEM = "Content-Encoding";
-static const char s_unlock_ota [] PROGMEM = "Please unlock OTA in security settings!";
-static const char s_unlock_cfg [] PROGMEM = "Please unlock settings using PIN code!";
-static const char s_notimplemented[] PROGMEM = "Not implemented";
-static const char s_accessdenied[]   PROGMEM = "Access Denied";
+static const char s_unlock_ota [] PROGMEM = "请在安全设置中解锁 OTA！";
+static const char s_unlock_cfg [] PROGMEM = "请使用 PIN 码解锁设置！";
+static const char s_notimplemented[] PROGMEM = "未实现";
+static const char s_accessdenied[]   PROGMEM = "访问被拒绝";
 static const char _common_js[]       PROGMEM = "/common.js";
 
 //Is this an IP?
@@ -142,10 +142,10 @@ static String msgProcessor(const String& var)
       messageBody += F(")</script>");
     } else if (optt == 253)
     {
-      messageBody += F("<br><br><form action=/settings><button class=\"bt\" type=submit>Back</button></form>"); //button to settings
+      messageBody += F("<br><br><form action=/settings><button class=\"bt\" type=submit>返回</button></form>"); //button to settings
     } else if (optt == 254)
     {
-      messageBody += F("<br><br><button type=\"button\" class=\"bt\" onclick=\"B()\">Back</button>");
+      messageBody += F("<br><br><button type=\"button\" class=\"bt\" onclick=\"B()\">返回</button>");
     }
     return messageBody;
   }
@@ -174,10 +174,10 @@ static void handleUpload(AsyncWebServerRequest *request, const String& filename,
     request->_tempFile.close();
     if (filename.indexOf(F("cfg.json")) >= 0) { // check for filename with or without slash
       doReboot = true;
-      request->send(200, FPSTR(CONTENT_TYPE_PLAIN), F("Configuration restore successful.\nRebooting..."));
+      request->send(200, FPSTR(CONTENT_TYPE_PLAIN), F("恢复配置成功。\n正在重启..."));
     } else {
       if (filename.indexOf(F("palette")) >= 0 && filename.indexOf(F(".json")) >= 0) strip.loadCustomPalettes();
-      request->send(200, FPSTR(CONTENT_TYPE_PLAIN), F("File Uploaded!"));
+      request->send(200, FPSTR(CONTENT_TYPE_PLAIN), F("文件上传成功！"));
     }
     cacheInvalidate++;
   }
@@ -194,7 +194,7 @@ void createEditHandler(bool enable) {
       #endif
     #else
       editHandler = &server.on(F("/edit"), HTTP_GET, [](AsyncWebServerRequest *request){
-        serveMessage(request, 501, FPSTR(s_notimplemented), F("The FS editor is disabled in this build."), 254);
+        serveMessage(request, 501, FPSTR(s_notimplemented), F("此版本构建中禁用了文件系统编辑器。"), 254);
       });
     #endif
   } else {
@@ -270,7 +270,7 @@ void initServer()
   });
 
   server.on(F("/reset"), HTTP_GET, [](AsyncWebServerRequest *request){
-    serveMessage(request, 200,F("Rebooting now..."),F("Please wait ~10 seconds..."),129);
+    serveMessage(request, 200,F("正在重启..."),F("请等待约 10 秒..."),129);
     doReboot = true;
   });
 
@@ -384,15 +384,15 @@ void initServer()
       return;
     }
     if (Update.hasError()) {
-      serveMessage(request, 500, F("Update failed!"), F("Please check your file and retry!"), 254);
+      serveMessage(request, 500, F("更新失败！"), F("检查你的文件并重试！"), 254);
     } else {
-      serveMessage(request, 200, F("Update successful!"), F("Rebooting..."), 131);
+      serveMessage(request, 200, F("更新成功！"), F("正在重启..."), 131);
       doReboot = true;
     }
   },[](AsyncWebServerRequest *request, String filename, size_t index, uint8_t *data, size_t len, bool isFinal){
     if (!correctPIN || otaLock) return;
     if(!index){
-      DEBUG_PRINTLN(F("OTA Update Start"));
+      DEBUG_PRINTLN(F("OTA 更新开始"));
       #if WLED_WATCHDOG_TIMEOUT > 0
       WLED::instance().disableWatchdog();
       #endif
@@ -408,9 +408,9 @@ void initServer()
     if(!Update.hasError()) Update.write(data, len);
     if(isFinal){
       if(Update.end(true)){
-        DEBUG_PRINTLN(F("Update Success"));
+        DEBUG_PRINTLN(F("更新成功"));
       } else {
-        DEBUG_PRINTLN(F("Update Failed"));
+        DEBUG_PRINTLN(F("更新失败"));
         strip.resume();
         UsermodManager::onUpdateBegin(false); // notify usermods that update has failed (some may require task init)
         #if WLED_WATCHDOG_TIMEOUT > 0
@@ -421,7 +421,7 @@ void initServer()
   });
 #else
   server.on(_update, HTTP_GET, [](AsyncWebServerRequest *request){
-    serveMessage(request, 501, FPSTR(s_notimplemented), F("OTA updating is disabled in this build."), 254);
+    serveMessage(request, 501, FPSTR(s_notimplemented), F("此版本构建中禁用了 OTA 更新功能。"), 254);
   });
 #endif
 
@@ -432,7 +432,7 @@ void initServer()
   });
 #else
   server.on(F("/dmxmap"), HTTP_GET, [](AsyncWebServerRequest *request){
-    serveMessage(request, 501, FPSTR(s_notimplemented), F("DMX support is not enabled in this build."), 254);
+    serveMessage(request, 501, FPSTR(s_notimplemented), F("此版本构建中未启用 DMX 支持。"), 254);
   });
 #endif
 
@@ -522,11 +522,11 @@ void serveSettingsJS(AsyncWebServerRequest* request)
   }
   byte subPage = request->arg(F("p")).toInt();
   if (subPage > 10) {
-    request->send_P(501, FPSTR(CONTENT_TYPE_JAVASCRIPT), PSTR("alert('Settings for this request are not implemented.');"));
+    request->send_P(501, FPSTR(CONTENT_TYPE_JAVASCRIPT), PSTR("alert('此请求的设置未实现。');"));
     return;
   }
   if (subPage > 0 && !correctPIN && strlen(settingsPIN)>0) {
-    request->send_P(401, FPSTR(CONTENT_TYPE_JAVASCRIPT), PSTR("alert('PIN incorrect.');"));
+    request->send_P(401, FPSTR(CONTENT_TYPE_JAVASCRIPT), PSTR("alert('PIN 不正确。');"));
     return;
   }
   
@@ -585,23 +585,23 @@ void serveSettings(AsyncWebServerRequest* request, bool post) {
     char s2[45] = "";
 
     switch (subPage) {
-      case SUBPAGE_WIFI   : strcpy_P(s, PSTR("WiFi")); strcpy_P(s2, PSTR("Please connect to the new IP (if changed)")); break;
-      case SUBPAGE_LEDS   : strcpy_P(s, PSTR("LED")); break;
-      case SUBPAGE_UI     : strcpy_P(s, PSTR("UI")); break;
-      case SUBPAGE_SYNC   : strcpy_P(s, PSTR("Sync")); break;
-      case SUBPAGE_TIME   : strcpy_P(s, PSTR("Time")); break;
-      case SUBPAGE_SEC    : strcpy_P(s, PSTR("Security")); if (doReboot) strcpy_P(s2, PSTR("Rebooting, please wait ~10 seconds...")); break;
+      case SUBPAGE_WIFI   : strcpy_P(s, PSTR("WiFi ")); strcpy_P(s2, PSTR("请连接到新的 IP（如果已更改）")); break;
+      case SUBPAGE_LEDS   : strcpy_P(s, PSTR("LED ")); break;
+      case SUBPAGE_UI     : strcpy_P(s, PSTR("用户界面")); break;
+      case SUBPAGE_SYNC   : strcpy_P(s, PSTR("同步")); break;
+      case SUBPAGE_TIME   : strcpy_P(s, PSTR("时间")); break;
+      case SUBPAGE_SEC    : strcpy_P(s, PSTR("安全")); if (doReboot) strcpy_P(s2, PSTR("正在重新启动，请等待约 10 秒...")); break;
 #ifdef WLED_ENABLE_DMX
       case SUBPAGE_DMX    : strcpy_P(s, PSTR("DMX")); break;
 #endif
-      case SUBPAGE_UM     : strcpy_P(s, PSTR("Usermods")); break;
+      case SUBPAGE_UM     : strcpy_P(s, PSTR("用户模块")); break;
 #ifndef WLED_DISABLE_2D
-      case SUBPAGE_2D     : strcpy_P(s, PSTR("2D")); break;
+      case SUBPAGE_2D     : strcpy_P(s, PSTR("2D ")); break;
 #endif
-      case SUBPAGE_PINREQ : strcpy_P(s, correctPIN ? PSTR("PIN accepted") : PSTR("PIN rejected")); break;
+      case SUBPAGE_PINREQ : strcpy_P(s, correctPIN ? PSTR("PIN 验证成功") : PSTR("PIN 验证失败")); break;
     }
 
-    if (subPage != SUBPAGE_PINREQ) strcat_P(s, PSTR(" settings saved."));
+    if (subPage != SUBPAGE_PINREQ) strcat_P(s, PSTR("设置已保存。"));
 
     if (subPage == SUBPAGE_PINREQ && correctPIN) {
       subPage = originalSubPage; // on correct PIN load settings page the user intended
@@ -637,7 +637,7 @@ void serveSettings(AsyncWebServerRequest* request, bool post) {
     case SUBPAGE_LOCK    : {
       correctPIN = !strlen(settingsPIN); // lock if a pin is set
       createEditHandler(correctPIN);
-      serveMessage(request, 200, strlen(settingsPIN) > 0 ? PSTR("Settings locked") : PSTR("No PIN set"), FPSTR(s_redirecting), 1);
+      serveMessage(request, 200, strlen(settingsPIN) > 0 ? PSTR("设置已锁定") : PSTR("未设置 PIN 码"), FPSTR(s_redirecting), 1);
       return;
     }
     case SUBPAGE_PINREQ  :  content = PAGE_settings_pin;  len = PAGE_settings_pin_length; code = 401;                 break;
