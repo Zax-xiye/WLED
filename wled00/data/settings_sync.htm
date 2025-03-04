@@ -118,9 +118,9 @@ UDP 数据包重传次数：<input name="UR" type="number" min="0" max="30" clas
 <h3>实时</h3>
 接收 UDP 实时数据：<input type="checkbox" name="RD"><br>
 仅使用主分段：<input type="checkbox" name="MO"><br>
-Respect LED Maps: <input type="checkbox" name="RLM"><br><br>
+遵循 LED 映射：<input type="checkbox" name="RLM"><br><br>
 <i>网络 DMX 输入</i><br>
-类型：
+类型:
 <select name=DI onchange="SP(); adj();">
 <option value=5568>E1.31 (sACN)</option>
 <option value=6454>Art-Net</option>
@@ -134,7 +134,7 @@ Respect LED Maps: <input type="checkbox" name="RLM"><br><br>
 DMX 起始地址：<input name="DA" type="number" min="1" max="510" required><br>
 DMX 分段间隔：<input name="XX" type="number" min="0" max="150" required><br>
 E1.31 端口优先级：<input name="PY" type="number" min="0" max="200" required><br>
-DMX 模式：
+DMX 模式:
 <select name=DM>
 <option value=0>禁用</option>
 <option value=1>单 RGB</option>
@@ -157,7 +157,7 @@ DMX 模式：
 	<h4>有线 DMX 输入引脚</h4>
 	DMX RX: <input name="IDMR" type="number" min="-1" max="99">RO<br/>
 	DMX TX: <input name="IDMT" type="number" min="-1" max="99">DI<br/>
-	DMX Enable: <input name="IDME" type="number" min="-1" max="99">RE+DE<br/>
+	DMX 使能: <input name="IDME" type="number" min="-1" max="99">RE+DE<br/>
 	DMX 端口: <input name="IDMP" type="number" min="1" max="2"><br/>
 </div> 
 <div id="dmxInputOff">
@@ -196,9 +196,9 @@ Alexa 调用名称：<input type="text" name="AI" maxlength="32"><br>
 用户名：<input type="text" name="MQUSER" maxlength="40"><br>
 密码：<input type="password" name="MQPASS" maxlength="64"><br>
 客户端 ID：<input type="text" name="MQCID" maxlength="40"><br>
-Device Topic：<input type="text" name="MD" maxlength="32"><br>
-Group Topic：<input type="text" name="MG" maxlength="32"><br>
-按钮按下时 Publish：<input type="checkbox" name="BM"><br>
+设备主题：<input type="text" name="MD" maxlength="32"><br>
+组主题：<input type="text" name="MG" maxlength="32"><br>
+按钮按下时发布：<input type="checkbox" name="BM"><br>
 保留亮度和颜色消息：<input type="checkbox" name="RT"><br>
 <i>应用更改需要重启。</i><a href="https://kno.wled.ge/interfaces/mqtt/" target="_blank">MQTT 信息</a>
 </div>
@@ -224,7 +224,7 @@ Hue 状态：<span class="sip"> 此版本中禁用 </span>
 	<em class="warn">此固件版本不支持串口接口。<br></em>
 </div>
 <div id="Serial">
-波特率：
+波特率:
 <select name=BD>
 <option value=1152>115200</option>
 <option value=2304>230400</option>
