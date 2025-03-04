@@ -11,7 +11,7 @@
 		function N() {
 			const button = gId("scan");
 			button.disabled = true;
-			button.textContent = "正在扫描……";
+			button.textContent = "正在扫描...";
 
 			fetch(getURL("/json/net")).then((response) => {
 				return response.json();
@@ -85,7 +85,7 @@
 				}
 
 				button.disabled = false;
-				button.textContent = "Scan";
+				button.textContent = "扫描";
 			});
 		}
 		// replace WiFi select with custom SSID input field again
@@ -167,7 +167,7 @@ BSSID（可选）：<br><input type="text" id="BS${i}" name="BS${i}" maxlength="
 		隐藏 AP 名称：<input type="checkbox" name="AH"><br>
 		AP 密码（留空则为开放）：<br> <input type="password" name="AP" maxlength="63" pattern="(.{8,63})|()" title="Empty or min. 8 characters"><br>
 		接入点 WiFi 频道：<input name="AC" type="number" class="xs" min="1" max="13" required><br>
-		AP 打开：
+		AP 打开:
 		<select name="AB">
 			<option value="0">启动后不连接</option>
 			<option value="1">断开连接时</option>
